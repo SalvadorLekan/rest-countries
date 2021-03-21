@@ -1,0 +1,25 @@
+:root {
+  --white: hsl(0, 0%, 100%);
+  --bg: hsl(0, 0%, 98%);
+  --color: hsl(200, 15%, 8%);
+  --bg-secondary: var(--white);
+  --input: var(--white);
+}
+.dark {
+  --bg: hsl(207, 26%, 17%);
+  --color: var(--white);
+  --bg-secondary: hsl(209, 23%, 22%);
+  --input: hsl(209, 23%, 22%);
+}
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap");
+body {
+  margin: 0;
+  font-family: "Nunito Sans", sans-serif;
+  box-sizing: border-box;
+  font-size: 14px;
+  color: var(--color);
+  background-color: var(--bg);
+}
+* {
+  transition: all 0.01s ease-out;
+}
