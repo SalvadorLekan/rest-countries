@@ -1,12 +1,8 @@
 <script lang="ts">
   import Nav from "../components/Nav.svelte";
-
-  const handleDark = () => {
-    document.body.classList.toggle("dark");
-  };
 </script>
 
-<Nav {handleDark} />
+<Nav />
 
 <main>
   <slot />

@@ -1,5 +1,18 @@
 <script lang="ts">
-  export let handleDark = () => {};
+  import { onMount } from "svelte";
+
+  let theme = "";
+
+  function setTheme() {
+    theme = localStorage.getItem("theme") || "";
+    document.body.className = theme;
+  }
+  let handleDark = () => {
+    localStorage.setItem("theme", theme ? "" : "dark");
+    setTheme();
+  };
+
+  onMount(setTheme);
 </script>
 
 <nav>
@@ -27,13 +40,13 @@
   nav {
     background-color: var(--bg-secondary);
     box-shadow: 0px 1px 5px #888;
-    padding-inline-start: 25px;
+    padding-left: 25px;
   }
   nav div {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-inline: 5px;
+    padding: 0 5px;
     height: 75px;
   }
   button {
@@ -47,8 +60,7 @@
     gap: 1ch;
     grid-auto-flow: column;
     border: none;
-    padding-inline: 1rem;
-    padding-block: 0.5rem;
+    padding: 0.5rem 1rem;
   }
   button:focus {
     outline: none;
@@ -56,7 +68,7 @@
 
   @media (min-width: 1200px) {
     nav {
-      padding-inline: 75px;
+      padding: 0 75px;
     }
   }
 </style>

@@ -1,8 +1,11 @@
 <script context="module">
   export async function preload() {
+    let res1 = await this.fetch(
+      "https://restcountries.eu/rest/v2/alpha?codes=de;us;br;isl"
+    );
     let res = await this.fetch("https://restcountries.eu/rest/v2/all");
 
-    let countries = await res.json();
+    let countries = [...(await res1.json()), ...(await res.json())];
 
     return { countries };
   }
@@ -62,10 +65,55 @@
   $: buttonText = continent || "Filter by Region";
 
   const regions = ["Africa", "America", "Asia", "Europe", "Oceania"];
+
+  let open = false;
+
+  function toggleOpen() {
+    open = !open;
+  }
 </script>
 
-<svelte:head>
+<svelte:head
+  ><!-- COMMON TAGS -->
+  <meta charset="utf-8" />
   <title>World Countries</title>
+  <!-- Search Engine -->
+  <meta
+    name="description"
+    content="A website that shows world countries. A challenge from https://www.frontendmentor.io"
+  />
+  <meta name="image" content="https://restcountries.eu/data/nga.svg" />
+  <!-- Schema.org for Google -->
+  <meta itemprop="name" content="World Countries" />
+  <meta
+    itemprop="description"
+    content="A website that shows world countries. A challenge from https://www.frontendmentor.io"
+  />
+  <meta itemprop="image" content="https://restcountries.eu/data/nga.svg" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="World Countries" />
+  <meta
+    name="twitter:description"
+    content="A website that shows world countries. A challenge from https://www.frontendmentor.io"
+  />
+  <meta name="twitter:site" content="@SalvadorLekan" />
+  <meta name="twitter:creator" content="@SalvadorLekan" />
+  <meta
+    name="twitter:image:src"
+    content="https://restcountries.eu/data/nga.svg"
+  />
+  <!-- Open Graph general (Facebook, Pinterest & Google+) -->
+  <meta name="og:title" content="World Countries" />
+  <meta
+    name="og:description"
+    content="A website that shows world countries. A challenge from https://www.frontendmentor.io"
+  />
+  <meta name="og:image" content="https://restcountries.eu/data/nga.svg" />
+  <meta name="og:url" content="https://restcount.netlify.app/" />
+  <meta name="og:site_name" content="World Cpuntries" />
+  <meta name="og:locale" content="en_US" />
+  <meta name="og:type" content="website" />
 </svelte:head>
 
 <div id="landing">
@@ -92,8 +140,8 @@
       />
     </div>
     <div class="v">
-      <div class="dqpl-field-wrap">
-        <button
+      <div class="dqpl-field-wrap" class:open>
+        <button on:click={toggleOpen} class="drop"
           >{buttonText}
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -126,7 +174,7 @@
     {#if country.region.includes(continent) && country.name
         .toLowerCase()
         .includes(search.toLowerCase())}
-      <a sapper:prefetch href={`/countries/${country.name.split(" ")[0]}`}>
+      <a rel="external" href={`/countries/${country.alpha3Code}`}>
         <img src={country.flag} width="265" height="170" alt={country.name} />
 
         <article>
@@ -139,10 +187,14 @@
     {/if}
   {/each}
 </section>
+<svelte:body
+  on:click={(e) => {
+    if (!e.target.className.includes("drop")) open = false;
+  }} />
 
 <style>
   #cc {
-    padding-block: 30px;
+    padding: 30px 0;
     display: flex;
     flex-wrap: wrap;
     row-gap: 3ch;
@@ -169,8 +221,7 @@
   }
 
   article {
-    padding-inline: 20px;
-    padding-block-end: 30px;
+    padding: 0 20px 30px 20px;
   }
   article p span {
     font-weight: 600;
@@ -240,15 +291,16 @@
     position: relative;
     z-index: 2;
   }
-  .dqpl-field-wrap:focus-within button:nth-of-type(1) {
+  .open button:nth-of-type(1) {
     margin-bottom: 5px;
   }
   .dqpl-field-wrap button:not(:nth-of-type(1)) {
     position: absolute;
   }
-  .dqpl-field-wrap:focus-within button:not(:nth-of-type(1)) {
+  .open button:not(:nth-of-type(1)) {
     position: relative;
   }
+
   .v {
     position: relative;
     width: 200px;

@@ -2,7 +2,7 @@
   export async function preload({ params }: { params: { country: string } }) {
     const { country } = params;
     let res = await this.fetch(
-      "https://restcountries.eu/rest/v2/name/" + country
+      "https://restcountries.eu/rest/v2/alpha?codes=" + country
     );
 
     let countries = await res.json();
@@ -108,7 +108,7 @@
     <p>
       <span>Border Countries: </span>
       {#each countries[0].borders as border}
-        <span class="border">{border}</span>
+        <a rel="external" href="/countries/{border}" class="border">{border}</a>
       {/each}
     </p>
   </article>
@@ -123,18 +123,17 @@
     border-radius: 1ch;
     padding: 12px 24px;
     background: var(--bg-secondary);
-
     box-shadow: 0px 0px 5px #888;
     align-content: center;
     color: inherit;
     text-decoration: none;
   }
-  a {
+  a:not(.border) {
     gap: 2ch;
-    margin-block: 50px;
+    margin: 50px 0;
     width: 70px;
   }
-  .border {
+  a.border {
     margin: 5px;
   }
   img {
@@ -152,6 +151,7 @@
   }
   article > div {
     display: flex;
+    justify-content: space-between;
     flex-wrap: wrap;
   }
   p span:nth-of-type(1) {
