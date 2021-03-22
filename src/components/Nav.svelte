@@ -39,7 +39,7 @@
 <style>
   nav {
     background-color: var(--bg-secondary);
-    box-shadow: 0px 1px 5px #888;
+    box-shadow: 0px 1px 2px #888;
     padding-left: 25px;
   }
   nav div {
@@ -51,19 +51,21 @@
   }
   button {
     font-weight: 600;
-    font-size: 16px;
-    display: grid;
+    display: flex;
     background-color: inherit;
-    place-items: center;
     color: inherit;
     width: auto;
     gap: 1ch;
-    grid-auto-flow: column;
     border: none;
     padding: 0.5rem 1rem;
   }
   button:focus {
     outline: none;
+  }
+
+  h3 {
+    font-size: x-large;
+    font-weight: 800;
   }
 
   @media (min-width: 1200px) {

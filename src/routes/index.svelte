@@ -73,9 +73,7 @@
   }
 </script>
 
-<svelte:head
-  ><!-- COMMON TAGS -->
-  <meta charset="utf-8" />
+<svelte:head>
   <title>World Countries</title>
   <!-- Search Engine -->
   <meta
@@ -83,13 +81,7 @@
     content="A website that shows world countries. A challenge from https://www.frontendmentor.io"
   />
   <meta name="image" content="https://restcountries.eu/data/nga.svg" />
-  <!-- Schema.org for Google -->
-  <meta itemprop="name" content="World Countries" />
-  <meta
-    itemprop="description"
-    content="A website that shows world countries. A challenge from https://www.frontendmentor.io"
-  />
-  <meta itemprop="image" content="https://restcountries.eu/data/nga.svg" />
+
   <!-- Twitter -->
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="World Countries" />
@@ -111,13 +103,13 @@
   />
   <meta name="og:image" content="https://restcountries.eu/data/nga.svg" />
   <meta name="og:url" content="https://restcount.netlify.app/" />
-  <meta name="og:site_name" content="World Cpuntries" />
+  <meta name="og:site_name" content="World Countries" />
   <meta name="og:locale" content="en_US" />
   <meta name="og:type" content="website" />
 </svelte:head>
 
 <div id="landing">
-  <section id="cc">
+  <div id="cc">
     <div class="search">
       <label for="search"
         ><svg
@@ -135,6 +127,7 @@
       >
       <input
         type="text"
+        id="search"
         bind:value={search}
         placeholder="Search for a country..."
       />
@@ -166,7 +159,7 @@
         {/each}
       </div>
     </div>
-  </section>
+  </div>
 </div>
 
 <section id="list">
@@ -232,11 +225,13 @@
     border: none;
     flex: auto;
     font-size: inherit;
+    min-width: 0;
   }
   :focus {
     outline: none;
   }
   #landing div.search {
+    width: 100%;
     display: grid;
     grid-template-columns: auto 1fr;
     font-size: 16px;
@@ -244,7 +239,7 @@
     padding: 15px 30px;
     background: var(--bg-secondary);
     gap: 2ch;
-    box-shadow: 0px 0px 5px #888;
+    box-shadow: 0px 0px 5px #aaa;
     align-content: center;
     max-width: 480px;
   }
@@ -257,7 +252,7 @@
   }
   @media (min-width: 1200px) {
     #cc {
-      padding: 30px 0;
+      padding: 50px 0;
     }
     #list {
       justify-content: space-between;
@@ -284,7 +279,6 @@
     padding: 2ch 3ch;
     width: 200px;
     color: inherit;
-    font-weight: 600;
   }
   .dqpl-field-wrap button:nth-of-type(1) {
     border-radius: 1ch;
