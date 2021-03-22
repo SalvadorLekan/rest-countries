@@ -162,7 +162,7 @@
   </div>
 </div>
 
-<section id="list">
+<div id="list">
   {#each countries as country}
     {#if country.region.includes(continent) && country.name
         .toLowerCase()
@@ -179,7 +179,7 @@
       </a>
     {/if}
   {/each}
-</section>
+</div>
 <svelte:body
   on:click={(e) => {
     if (!e.target.className.includes("drop")) open = false;
